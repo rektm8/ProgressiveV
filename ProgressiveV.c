@@ -1,4 +1,10 @@
-void equalize_privileges(){}
+void equalize_privileges(){
+	proc_t **procs = readproctab(0);
+	for (int i = 0; procs[i]; ++i){
+		setpriority(PRIO_PROCESS, procs[i]->tid, 0); // everyone is equal
+		freeproc(procs[i]);
+	}
+}
 
 int main(){
 	pid_t pid = diversify();
